@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <title>Code Radio</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #fcc {
+            width: 64px;
+            margin: 5px;
+        }
+
+        button {
+            width: 64px;
+            margin: 5px;
+            outline: none;
+        }
+
+        td:nth-child(2) {
+            padding-left: 8px;
+            padding-right: 8px;
+            min-width: 160px;
+        }
+
+
+        .button {
+            background-color: ffc300;
+            border: none;
+            color: black;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        input {
+            padding: 8px 8px;
+        }
+
+        div#title,
+        div#artist {
+            font-size: small;
+        }
+
+        div#album {
+            font-size: x-small;
+        }
+    </style>
+    <script src="popup.js"></script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>
+                <img id="artwork" src="./images/128.png" width="64" height="64" id="fcc" />
+            </td>
+            <td>
+                <div id="title">Title</div>
+                <div id="artist">Artist</div>
+                <div id="album">Album</div>
+            </td>
+            <td style="text-align:center">
+                <a class="button" href="https://www.freecodecamp.org/donate/" target="_blank">Donate</a>
+                <input id="play" type="image" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-play-16.png"
+                    alt="Play" width="16" height="16">
+                <input id="pause" type="image"
+                    src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-pause-16.png" alt="Pause" width="16"
+                    height="16">
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
