@@ -23,6 +23,10 @@ window.onload = function (e) {
     document.getElementById("play").classList.toggle('paused');
     chrome.extension.sendMessage({ action: 'play' });
   });
+
+  document.getElementById('volume').addEventListener("change", function(){
+    chrome.extension.sendMessage({ action: 'volume', data: this.value });
+  });
 }
 
 chrome.runtime.onMessage.addListener(
@@ -33,10 +37,11 @@ chrome.runtime.onMessage.addListener(
       document.getElementById('artist').innerHTML = request.data.artist;
       document.getElementById('album').innerHTML = request.data.album;
     }
-    if (request.message === 'player_state') {
-      if (request.data === false) {
+    if (request.message === 'player') {
+      if (request.data.status === false) {
         document.getElementById("play").classList.add('paused');
       }
+      document.getElementById("volume").value = (request.data.volume * 100);
     }
   }
 );

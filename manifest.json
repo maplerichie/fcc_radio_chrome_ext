@@ -1,7 +1,7 @@
 {
   "name": "freeCodeCamp.org Code Radio",
   "description": "Code Radio. 24/7 music designed for coding",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "manifest_version": 2,
   "permissions": ["notifications", "background", "storage"],
   "background": {

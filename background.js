@@ -13,15 +13,17 @@ function connect(host) {
             var msg = JSON.parse(event.data);
             chrome.storage.local.get('title', function (result) {
                 if (result.title !== msg.now_playing.song.title) {
-                    var options = {
-                        type: "basic",
-                        title: msg.now_playing.song.title,
-                        message: msg.now_playing.song.artist,
-                        iconUrl: 'images/32.png',
-                        priority: 0,
-                        silent: true
+                    if (!player.paused) {
+                        var options = {
+                            type: "basic",
+                            title: msg.now_playing.song.title,
+                            message: msg.now_playing.song.artist,
+                            iconUrl: 'images/32.png',
+                            priority: 0,
+                            silent: true
+                        }
+                        chrome.notifications.create(options);
                     }
-                    chrome.notifications.create(options);
                     chrome.storage.local.set({ 'artwork': msg.now_playing.song.art });
                     chrome.storage.local.set({ 'title': msg.now_playing.song.title });
                     chrome.storage.local.set({ 'artist': msg.now_playing.song.artist });
@@ -50,7 +52,7 @@ function closeWebSocketConnection() {
 chrome.extension.onMessage.addListener(function (msg) {
     if (msg.action === 'load') {
         connect(ws);
-        chrome.runtime.sendMessage({ "message": "player_state", "data": player.paused });
+        chrome.runtime.sendMessage({ "message": "player", "data": { 'status': player.paused, 'volume': player.volume } });
     }
     if (msg.action === 'play') {
         if (player.paused) {
@@ -59,5 +61,8 @@ chrome.extension.onMessage.addListener(function (msg) {
             player.pause();
             closeWebSocketConnection();
         }
+    }
+    if (msg.action === 'volume') {
+        player.volume = msg.data / 100;
     }
 });
