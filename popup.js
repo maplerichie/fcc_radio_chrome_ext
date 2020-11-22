@@ -19,10 +19,9 @@ window.onload = function (e) {
   chrome.extension.sendMessage({ action: 'load' });
 
   document.getElementById("play").addEventListener("click", function () {
+    e.preventDefault();
+    document.getElementById("play").classList.toggle('paused');
     chrome.extension.sendMessage({ action: 'play' });
-  });
-  document.getElementById("pause").addEventListener("click", function () {
-    chrome.extension.sendMessage({ action: 'pause' });
   });
 }
 
@@ -33,6 +32,11 @@ chrome.runtime.onMessage.addListener(
       document.getElementById('title').innerHTML = request.data.title;
       document.getElementById('artist').innerHTML = request.data.artist;
       document.getElementById('album').innerHTML = request.data.album;
+    }
+    if (request.message === 'player_state') {
+      if (request.data === false) {
+        document.getElementById("play").classList.add('paused');
+      }
     }
   }
 );

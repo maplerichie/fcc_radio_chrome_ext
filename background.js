@@ -1,6 +1,6 @@
 var ws = 'wss://coderadio-admin.freecodecamp.org/api/live/nowplaying/coderadio';
 var websocket;
-var audio_element = document.createElement("audio");
+var player = document.createElement("audio");
 
 function connect(host) {
     if (websocket === undefined) {
@@ -28,8 +28,8 @@ function connect(host) {
                     chrome.storage.local.set({ 'album': msg.now_playing.song.album });
                 }
             });
-            if (audio_element.src === '') {
-                audio_element.src = msg.station.listen_url;
+            if (player.src === '') {
+                player.src = msg.station.listen_url;
             }
             chrome.runtime.sendMessage({ "message": "radio_fetched", "data": msg.now_playing.song });
         };
@@ -50,16 +50,13 @@ function closeWebSocketConnection() {
 chrome.extension.onMessage.addListener(function (msg) {
     if (msg.action === 'load') {
         connect(ws);
+        chrome.runtime.sendMessage({ "message": "player_state", "data": player.paused });
     }
     if (msg.action === 'play') {
-        if (audio_element.paused) {
-            audio_element.play();
-            closeWebSocketConnection();
-        }
-    }
-    if (msg.action === 'pause') {
-        if (audio_element.played) {
-            audio_element.pause();
+        if (player.paused) {
+            player.play();
+        } else {
+            player.pause();
             closeWebSocketConnection();
         }
     }

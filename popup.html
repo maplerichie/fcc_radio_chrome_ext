@@ -5,6 +5,7 @@
     <style>
         body {
             text-align: center;
+            background: #0a0a23;
         }
 
         #fcc {
@@ -18,15 +19,24 @@
             outline: none;
         }
 
+        table {
+            min-height: 88px;
+            max-height: 88px;
+        }
+
         td:nth-child(2) {
             padding-left: 8px;
             padding-right: 8px;
             min-width: 160px;
         }
 
+        td:nth-child(3) div {
+            min-height: 32px;
+        }
+
 
         .button {
-            background-color: ffc300;
+            background-color: #ffc300;
             border: none;
             color: black;
             padding: 8px 16px;
@@ -38,24 +48,47 @@
             margin-bottom: 8px;
         }
 
-        input {
-            padding: 8px 8px;
+        button.paused {
+            border-style: double;
+            border-width: 0px 0 0px 16px;
+        }
+
+        button:hover {
+            border-color: transparent transparent transparent #404040;
+        }
+
+        button {
+            border: 0;
+            background: transparent;
+            box-sizing: border-box;
+            width: 0;
+            height: 16px;
+
+            border-color: transparent transparent transparent white;
+            transition: 100ms all ease;
+            cursor: pointer;
+
+            border-style: solid;
+            border-width: 8px 0 8px 16px;
+
         }
 
         div#title,
         div#artist {
             font-size: small;
+            color: white;
         }
 
         div#album {
             font-size: x-small;
+            color: white;
         }
     </style>
     <script src="popup.js"></script>
 </head>
 
 <body>
-    <table>
+    <table id="info">
         <tr>
             <td>
                 <img id="artwork" src="./images/128.png" width="64" height="64" id="fcc" />
@@ -65,13 +98,11 @@
                 <div id="artist">Artist</div>
                 <div id="album">Album</div>
             </td>
-            <td style="text-align:center">
+            <td>
                 <a class="button" href="https://www.freecodecamp.org/donate/" target="_blank">Donate</a>
-                <input id="play" type="image" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-play-16.png"
-                    alt="Play" width="16" height="16">
-                <input id="pause" type="image"
-                    src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-pause-16.png" alt="Pause" width="16"
-                    height="16">
+                <div>
+                    <button id="play"></button>
+                </div>
             </td>
         </tr>
     </table>
